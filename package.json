@@ -1,0 +1,22 @@
+{
+  "name": "product-war",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "license": "",
+  "devDependencies": {
+    "webpack": "2.2.0",
+    "minimatch": "3.0.3",
+    "babel-core": "6.21.0",
+    "babel-preset-env": "1.1.8",
+    "babel-loader": "6.2.10",
+    "shep": "4.0.0-4"
+  },
+  "shep": {
+    "region": "us-east-1",
+    "accountId": "654843952338",
+    "apiId": "",
+    "buildCommand": "",
+    "bucket": ""
+  }
+}
