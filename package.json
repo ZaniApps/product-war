@@ -1,22 +1,78 @@
 {
-  "name": "product-war",
+  "name": "slack-bot",
   "version": "1.0.0",
-  "private": true,
-  "description": "",
-  "license": "",
-  "devDependencies": {
-    "webpack": "2.2.0",
-    "minimatch": "3.0.3",
-    "babel-core": "6.21.0",
-    "babel-preset-env": "1.1.8",
-    "babel-loader": "6.2.10",
-    "shep": "4.0.0-4"
+  "description": "Slack Bot",
+  "author": "Lester Chan <lesterchan@gmail.com> (https://lesterchan.net)",
+  "homepage": "https://lesterchan.net",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lesterchan/slack-bot.git"
+  },
+  "main": "index.js",
+  "license": "MIT",
+  "config": {},
+  "dependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-syntax-async-functions": "^6.13.0",
+    "babel-plugin-transform-async-to-module-method": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.4.0",
+    "babel-register": "^6.24.1",
+    "babel-watch": "^2.0.5",
+    "bluebird": "*",
+    "eslint": "*",
+    "eslint-config-google": "*",
+    "expect.js": "*",
+    "ip": "*",
+    "mocha": "*",
+    "moment": "*",
+    "request": "^2.74.0",
+    "request-promise": "*",
+    "shep": "^4.0.0",
+    "webpack": "^2.4.1"
+  },
+  "eslintConfig": {
+    "extends": "google"
+  },
+  "scripts": {
+    "lint": "eslint *.js",
+    "test": "mocha"
+  },
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "node": 6
+          }
+        }
+      ]
+    ],
+    "plugins": [
+      "add-module-exports",
+      [
+        "transform-async-to-module-method",
+        {
+          "module": "bluebird",
+          "method": "coroutine"
+        }
+      ],
+      "syntax-async-functions",
+      [
+        "transform-object-rest-spread",
+        {
+          "useBuiltIns": true
+        }
+      ]
+    ]
   },
   "shep": {
+    "accountId": "538316705124",
     "region": "us-east-1",
-    "accountId": "654843952338",
-    "apiId": "",
-    "buildCommand": "",
-    "bucket": ""
+    "apiId": "w0p3o65kbg"
   }
 }
