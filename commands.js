@@ -32,44 +32,68 @@ module.exports = {
     return rp({
       uri: config.mattermarkUrl + '/search?object_types=company&term=' + companyName + '&key=' + config.mattermarkKey,
       json: true
-    }).then(function(body) {
-      var company = body[0];
-      console.log(company);
-      var convertedFunding = company.company_funding.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
-      // Fields
+    }).then(async (body) => {
+      const firstHit = body[0];
+      const company = await rp({
+        uri: `${config.mattermarkUrl}/companies/${firstHit.object_id}?key=${config.mattermarkKey}`,
+        json: true
+      })
+      const convertedFunding = Number(company.total_funding).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
+
       var fields = [
         {
-          title: 'Organization',
-          value: company.object_name,
+          title: '# Employees',
+          value: company.employees,
           short: true
         },
         {
-          title: 'Domain',
-          value: company.company_domain,
+          title: '# Employees Last Month',
+          value: company.employees_last_month,
+          short: true
+        },
+        {
+          title: '# Employees 6 Months Ago',
+          value: company.employees_6_months_ago,
+          short: true
+        },
+        {
+          title: 'Website Uniques',
+          value: company.website_uniques,
+          short: true
+        },
+        {
+          title: 'Mobile Downloads',
+          value: company.mobile_downloads,
           short: true
         },
         {
           title: 'Funding',
-          value: convertedFunding,
+          value: `$${convertedFunding}`,
           short: true
+        },
+        {
+          title: 'Last Funding Date',
+          value: company.last_funding_date,
+          short: true
+        },
+        {
+          title: 'Latest Story',
+          value: company.stories[0].title + " - " + company.stories[0].url
         }
-      ];
+      ]
 
       // Attachments
       var attachments = [{
-        pretext: ':exclamation: *finished*',
-        title: 'Results',
-        text: 'something',
+        title: company.name,
         fallback: helper.getFallbackMessage(fields),
         mrkdwn_in: ['pretext', 'text'], // eslint-disable-line camelcase
         color: config.defaultColor,
         fields: fields
-      }];
-      console.log(attachments);
+      }]
 
       return {
         attachments: attachments
-      };
+      }
     })
   },
 

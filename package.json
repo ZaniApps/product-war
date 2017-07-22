@@ -31,11 +31,8 @@
     "moment": "*",
     "request": "^2.74.0",
     "request-promise": "*",
-    "shep": "^4.0.0",
+    "shep": "5.0.0-2",
     "webpack": "^2.4.1"
-  },
-  "eslintConfig": {
-    "extends": "google"
   },
   "scripts": {
     "lint": "eslint *.js",
@@ -69,6 +66,46 @@
         }
       ]
     ]
+  },
+  "eslintConfig": {
+    "env": {
+      "node": true,
+      "mocha": true
+    },
+    "globals": {
+      "expect": false,
+      "assert": false,
+      "Factory": false,
+      "Faker": false,
+      "executeQuery": false,
+      "executeAndReject": false
+    },
+    "extends": [
+      "google",
+      "standard",
+      "plugin:import/errors",
+      "plugin:import/warnings"
+    ],
+    "plugins": [
+      "mocha"
+    ],
+    "rules": {
+      "curly": [
+        "error",
+        "all"
+      ],
+      "no-console": "error",
+      "import/no-unresolved": 2,
+      "import/namespace": [
+        2,
+        {
+          "allowComputed": true
+        }
+      ],
+      "mocha/no-skipped-tests": "error",
+      "mocha/no-exclusive-tests": "error",
+      "no-return-await": "error"
+    }
   },
   "shep": {
     "accountId": "538316705124",
